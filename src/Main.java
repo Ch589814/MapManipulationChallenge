@@ -1,13 +1,36 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-  //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-  // to see how IntelliJ IDEA suggests fixing it.
-  IO.println(String.format("Hello and welcome!"));
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
-  for (int i = 1; i <= 5; i++) {
-    //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-    // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-    IO.println("i = " + i);
-  }
+public class Main {
+    public static void main(String[] args) {
+
+        Map<Integer, String> students = new HashMap<>();
+
+        StudentManager.addStudent(students, 1, "Alice");
+        StudentManager.addStudent(students, 2, "Raissa");
+
+        try {
+            StudentManager.addStudent(students, -1, "Test");
+        } catch (IllegalArgumentException | NullPointerException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        try {
+            StudentManager.addStudent(students, 4, null);
+        } catch (IllegalArgumentException | NullPointerException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        StudentManager.searchStudent(students, 1);
+        StudentManager.searchStudent(students, 10);
+        StudentManager.removeStudent(students, 3);
+
+        Map<Integer, String> sortedStudents = StudentManager.sortStudents(students);
+        System.out.println("Sorted Students: " + sortedStudents);
+
+        TreeMap<Integer, String> treeMapStudents = new TreeMap<>(students);
+        StudentManager.findStudentWithHighestId(treeMapStudents);
+        StudentManager.findStudentWithLowestId(treeMapStudents);
+    }
 }
